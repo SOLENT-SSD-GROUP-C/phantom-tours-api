@@ -20,13 +20,13 @@ public class User {
 
 	private String password;
 
-	private USER_ROLE role;
+	private String role;
 
 	public User() {
 		super();
 	}
 
-	public User(int id, String username, String email, String password, USER_ROLE role) {
+	public User(int id, String username, String email, String password, String role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -67,11 +67,11 @@ public class User {
 		this.password = password;
 	}
 
-	public USER_ROLE getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(USER_ROLE role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

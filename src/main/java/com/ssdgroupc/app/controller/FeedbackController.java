@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssdgroupc.app.entity.Feedback;
+import com.ssdgroupc.app.entity.User;
 import com.ssdgroupc.app.service.FeedbackService;
 
 @RestController
@@ -22,17 +23,18 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 
 	@GetMapping("/feedbacks")
-	public List<Feedback> getAllFeedback() {
+	public List<Feedback> getAllFeedbacks() {
 		return feedbackService.getAllFeedbacks();
 	}
 
-	@PostMapping("/feedbacks")
-	public void addFeedback(@Valid @RequestBody Feedback feedback) {
+	@PostMapping("users/{userId}/feedbacks")
+	public void addFeedback(@Valid @RequestBody Feedback feedback, @PathVariable int userId) {
+		feedback.setUser(new User(userId, "","","",""));
 		feedbackService.addFeedback(feedback);
 	}
 
-	@DeleteMapping("/feedbacks/{id}")
-	public void deletFeedback(@PathVariable(value = "id") int id) {
+	@DeleteMapping("feedbacks/{id}")
+	public void deletFeedback(@PathVariable int id) {
 		feedbackService.deleteFeedback(id);
 	}
 

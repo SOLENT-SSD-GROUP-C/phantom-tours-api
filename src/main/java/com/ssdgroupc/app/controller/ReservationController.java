@@ -22,22 +22,22 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping("/reservations")
+	@GetMapping("reservations")
 	public List<Reservation> getAllReservations() {
 		return reservationService.getAllReservations();
 	}
 
-	@GetMapping("/reservations/{id}")
+	@GetMapping("reservations/{id}")
 	public Optional<Reservation> getReservation(@PathVariable(value = "id") int id) {
 		return reservationService.getReservation(id);
 	}
 
-	@PostMapping("/reservations")
+	@PostMapping("users/{userId}/reservations")
 	public void addReservation(@Valid @RequestBody Reservation reservation) {
 		reservationService.addReservation(reservation);
 	}
 
-	@DeleteMapping("/reservations/{id}")
+	@DeleteMapping("reservations/{id}")
 	public void deleteReservation(@PathVariable(value = "id") int id) {
 		reservationService.deleteReservation(id);
 		;

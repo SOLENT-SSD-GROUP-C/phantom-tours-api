@@ -4,16 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="feedbackS")
+@Table(name="feedbacks")
 public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int feedbackId;
 	private String feedbackBody;
+	@ManyToOne
+	private User user;
 
 	public Feedback() {
 		super();
@@ -39,6 +42,14 @@ public class Feedback {
 
 	public void setFeedbackBody(String feedbackBody) {
 		this.feedbackBody = feedbackBody;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
