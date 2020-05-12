@@ -1,16 +1,25 @@
 package com.ssdgroupc.app.entity;
 
-import java.awt.image.BufferedImage;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="carousels")
 public class Carousel {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int carouselId;
-	private BufferedImage carouselImageLink;
+	private String carouselImageLink;
 
 	public Carousel() {
 		super();
 	}
 
-	public Carousel(int carouselId, BufferedImage carouselImageLink) {
+	public Carousel(int carouselId, String carouselImageLink) {
 		super();
 		this.carouselId = carouselId;
 		this.carouselImageLink = carouselImageLink;
@@ -24,11 +33,11 @@ public class Carousel {
 		this.carouselId = carouselId;
 	}
 
-	public BufferedImage getCarouselImageLink() {
+	public String getCarouselImageLink() {
 		return carouselImageLink;
 	}
 
-	public void setCarouselImageLink(BufferedImage carouselImageLink) {
+	public void setCarouselImageLink(String carouselImageLink) {
 		this.carouselImageLink = carouselImageLink;
 	}
 

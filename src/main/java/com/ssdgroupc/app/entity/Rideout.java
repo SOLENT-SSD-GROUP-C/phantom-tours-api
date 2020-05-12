@@ -2,8 +2,18 @@ package com.ssdgroupc.app.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="rideouts")
 public class Rideout {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rideoutId;
 	private String rideoutTitle;
 	private String rideoutDescription;
