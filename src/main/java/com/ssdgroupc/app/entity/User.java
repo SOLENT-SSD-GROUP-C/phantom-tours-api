@@ -7,72 +7,69 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name = "USERS")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int userId;
+	private String userName;
+	private String userEmail;
+	private String userPassword;
+	private String userRole;
 
-	private String username;
-
-	private String email;
-
-	private String password;
-
-	private String role;
+	public User(int userId, String userName, String userEmail, String userPassword, String userRole) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+		this.userRole = userRole;
+	}
 
 	public User() {
 		super();
 	}
 
-	public User(int id, String username, String email, String password, String role) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.role = role;
+	public int getUserId() {
+		return userId;
 	}
 
-	public int getId() {
-		return id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
-	public String getPassword() {
-		return password;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getUserRole() {
+		return userRole;
 	}
 
-	public String getRole() {
-		return role;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
 
 }

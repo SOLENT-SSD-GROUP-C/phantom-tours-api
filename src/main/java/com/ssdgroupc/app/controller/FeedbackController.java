@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssdgroupc.app.entity.Feedback;
+import com.ssdgroupc.app.entity.Tour;
 import com.ssdgroupc.app.entity.User;
 import com.ssdgroupc.app.service.FeedbackService;
 
@@ -27,9 +28,20 @@ public class FeedbackController {
 		return feedbackService.getAllFeedbacks();
 	}
 
-	@PostMapping("users/{userId}/feedbacks")
-	public void addFeedback(@Valid @RequestBody Feedback feedback, @PathVariable int userId) {
-		feedback.setUser(new User(userId, "","","",""));
+//	@PostMapping("users/{userId}/feedbacks")
+//	public void addFeedback(@Valid @RequestBody Feedback feedback, @PathVariable int userId) {
+//		feedback.setUser(new User(userId, "", "", "", ""));
+//		feedbackService.addFeedback(feedback);
+//	}
+	
+//	@PostMapping("/feedbacks")
+//	public void addFeedback(@Valid @RequestBody Feedback feedback) {
+//		feedbackService.addFeedback(feedback);
+//	}
+	
+	@PostMapping("tours/{tourId}/feedbacks")
+	public void addFeedback(@Valid @RequestBody Feedback feedback , @PathVariable int tourId) {
+		feedback.setTour(new Tour(tourId));
 		feedbackService.addFeedback(feedback);
 	}
 

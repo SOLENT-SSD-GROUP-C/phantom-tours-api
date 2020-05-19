@@ -1,5 +1,6 @@
 package com.ssdgroupc.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,14 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Bikes")
+@Table(name="BIKES")
 public class Bike {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int bikeId;
 	private String bikeName;
+	@Column( length = 1000 )
 	private String bikeDescription;
+	@Column( length = 500 )
 	private String bikeImageLink;
 
 	public Bike(int bikeId, String bikeName, String bikeDescription, String imageLink) {

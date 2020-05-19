@@ -34,8 +34,8 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public void addUser(@Valid @RequestBody User user) {
-		 userService.addUser(user);
+	public User addUser(@Valid @RequestBody User user) {
+		 return userService.addUser(user);
 	}
 
 	@PutMapping("/users/{id}")

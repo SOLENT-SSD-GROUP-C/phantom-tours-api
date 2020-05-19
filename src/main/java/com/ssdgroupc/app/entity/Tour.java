@@ -1,33 +1,43 @@
 package com.ssdgroupc.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tours")
+@Table(name = "TOURS")
 public class Tour {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int tourId;
-	private int tourGroupSize;
+	private String tourTitle;
+	@Lob
+	@Column(length = 2500)
+	private String tourDescription;
+	@Column(length = 250)
+	private String tourLocationImageLink;
 	private int tourDays;
 	private double tourDistance;
 	private double tourPrice;
-	private boolean tourAvailability;
-	private String tourTitle;
-	private String tourDescription;
+	private int tourGroupSize;
 	private String tourTerrain;
 	private String tourStartingPoint;
 	private String tourEndingPoint;
-	private String tourLocationImageLink;
+	private boolean tourAvailability;
+	@Column(length = 250)
 	private String tourRouteMapLink;
 
 	public Tour() {
 		super();
+	}
+
+	public Tour(int tourId) {
+		this.tourId = tourId;
 	}
 
 	public Tour(int tourId, int tourGroupSize, int tourDays, double tourDistance, double tourPrice,

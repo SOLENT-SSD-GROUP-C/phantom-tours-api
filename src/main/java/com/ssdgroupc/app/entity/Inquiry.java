@@ -1,13 +1,15 @@
 package com.ssdgroupc.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="inquiries")
+@Table(name="INQUIRIES")
 public class Inquiry {
 
 	@Id
@@ -17,6 +19,8 @@ public class Inquiry {
 	private String userFullName;
 	private String userEmail;
 	private String userPhone;
+	@Lob
+	@Column(length = 1000)
 	private String inquiryBody;
 
 	public Inquiry() {

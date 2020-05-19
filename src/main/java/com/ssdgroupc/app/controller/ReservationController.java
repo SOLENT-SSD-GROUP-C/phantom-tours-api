@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssdgroupc.app.entity.Reservation;
+import com.ssdgroupc.app.entity.Rideout;
+import com.ssdgroupc.app.entity.Tour;
 import com.ssdgroupc.app.service.ReservationService;
 
 @RestController
@@ -32,10 +34,27 @@ public class ReservationController {
 		return reservationService.getReservation(id);
 	}
 
-	@PostMapping("users/{userId}/reservations")
-	public void addReservation(@Valid @RequestBody Reservation reservation) {
+//	@PostMapping("users/{userId}/reservations")
+//	public void addReservation(@Valid @RequestBody Reservation reservation) {
+//		reservationService.addReservation(reservation);
+//	}
+
+	@PostMapping("tours/{tourId}/reservations")
+	public void addReservationForTour(@Valid @RequestBody Reservation reservation, @PathVariable int tourId) {
+		reservation.setTour(new Tour(tourId));
 		reservationService.addReservation(reservation);
 	}
+
+	@PostMapping("rideouts/{rideoutId}/reservations")
+	public void addReservationForRideout(@Valid @RequestBody Reservation reservation, @PathVariable int rideoutId) {
+		reservation.setRideout(new Rideout(rideoutId));
+		reservationService.addReservation(reservation);
+	}
+
+//	@PostMapping("/reservations")
+//	public void addReservation(@Valid @RequestBody Reservation reservation) {
+//		reservationService.addReservation(reservation);
+//	}
 
 	@DeleteMapping("reservations/{id}")
 	public void deleteReservation(@PathVariable(value = "id") int id) {

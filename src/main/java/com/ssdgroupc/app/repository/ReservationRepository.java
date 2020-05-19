@@ -7,5 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.ssdgroupc.app.entity.Reservation;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
-	public List<Reservation> findByuserId(int userId);
+//	public List<Reservation> findByUserUserId(int userId);
+	
+	public List<Reservation> findByTourTourId(int tourId);
 }
