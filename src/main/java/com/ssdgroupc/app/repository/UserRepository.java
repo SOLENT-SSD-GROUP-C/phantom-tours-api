@@ -2,11 +2,16 @@ package com.ssdgroupc.app.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.ssdgroupc.app.entity.User;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+	Optional<User> findByUsername(String username);
 
-	Optional<User> findByUserName(String userName);
+	Boolean existsByUsername(String username);
+
+	Boolean existsByEmail(String email);
 }

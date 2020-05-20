@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "RESERVATIONS")
@@ -14,9 +15,13 @@ public class Reservation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int reservationId;
+	@NotNull
 	private String reservationType;
+	@NotNull
 	private String userFullName;
+	@NotNull
 	private String userEmail;
+	@NotNull
 	private String userPhone;
 	@ManyToOne
 	private Tour tour;
@@ -27,7 +32,8 @@ public class Reservation {
 		super();
 	}
 
-	public Reservation(int reservationId,String reservationType, String userFullName, String userEmail, String userPhone, Tour tour) {
+	public Reservation(int reservationId, String reservationType, String userFullName, String userEmail,
+			String userPhone, Tour tour) {
 		super();
 		this.reservationId = reservationId;
 		this.reservationType = reservationType;
@@ -36,7 +42,9 @@ public class Reservation {
 		this.userPhone = userPhone;
 		this.tour = tour;
 	}
-	public Reservation(int reservationId,String reservationType, String userFullName, String userEmail, String userPhone, Rideout rideout) {
+
+	public Reservation(int reservationId, String reservationType, String userFullName, String userEmail,
+			String userPhone, Rideout rideout) {
 		super();
 		this.reservationId = reservationId;
 		this.reservationType = reservationType;
@@ -92,7 +100,6 @@ public class Reservation {
 	public void setReservationId(int reservationId) {
 		this.reservationId = reservationId;
 	}
-
 
 	public String getUserFullName() {
 		return userFullName;

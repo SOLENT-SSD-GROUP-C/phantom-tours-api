@@ -6,14 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="GALLERY_ITEMS")
+@Table(name = "GALLERY_ITEMS")
 public class GalleryItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int galleryItemId;
+	@NotNull
 	@Column(length = 500)
 	private String galleryImageLink;
 

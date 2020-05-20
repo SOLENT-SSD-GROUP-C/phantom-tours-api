@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TOURS")
@@ -15,20 +16,32 @@ public class Tour {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int tourId;
+	@NotNull
 	private String tourTitle;
+	@NotNull
 	@Lob
 	@Column(length = 2500)
 	private String tourDescription;
+	@NotNull
 	@Column(length = 250)
 	private String tourLocationImageLink;
+	@NotNull
 	private int tourDays;
+	@NotNull
 	private double tourDistance;
+	@NotNull
 	private double tourPrice;
+	@NotNull
 	private int tourGroupSize;
+	@NotNull
 	private String tourTerrain;
+	@NotNull
 	private String tourStartingPoint;
+	@NotNull
 	private String tourEndingPoint;
+	@NotNull
 	private boolean tourAvailability;
+	@NotNull
 	@Column(length = 250)
 	private String tourRouteMapLink;
 

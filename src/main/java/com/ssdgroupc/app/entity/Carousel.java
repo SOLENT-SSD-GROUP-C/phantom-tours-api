@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="CAROUSELS")
@@ -14,6 +15,7 @@ public class Carousel {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int carouselId;
+	@NotNull
 	@Column(length = 500)
 	private String carouselImageLink;
 

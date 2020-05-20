@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "FEEDBACKS")
@@ -16,17 +17,28 @@ public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int feedbackId;
+	@NotNull
 	private int feedbackStars;
+	@NotNull
 	@Lob
 	@Column(length = 500)
 	private String feedbackBody;
 	@ManyToOne
 	private Tour tour;
-//	@ManyToOne
-//	private User user;
+	@NotNull
+	private String username;
 
 	public Feedback() {
 		super();
+	}
+
+	public Feedback(int feedbackId, int feedbackStars, String feedbackBody, Tour tour, String username) {
+		super();
+		this.feedbackId = feedbackId;
+		this.feedbackStars = feedbackStars;
+		this.feedbackBody = feedbackBody;
+		this.tour = tour;
+		this.username = username;
 	}
 
 	public Feedback(int feedbackId, int feedbackStars, String feedbackBody, Tour tour) {
@@ -82,6 +94,14 @@ public class Feedback {
 
 	public void setTour(Tour tour) {
 		this.tour = tour;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

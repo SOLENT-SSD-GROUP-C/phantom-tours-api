@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="BIKES")
@@ -14,9 +17,12 @@ public class Bike {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int bikeId;
+	@NotNull
 	private String bikeName;
+	@Lob
 	@Column( length = 1000 )
 	private String bikeDescription;
+	@NotNull
 	@Column( length = 500 )
 	private String bikeImageLink;
 

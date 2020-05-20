@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "RIDEOUTS")
@@ -17,14 +18,20 @@ public class Rideout {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rideoutId;
+	@NotNull
 	private String rideoutTitle;
+	@NotNull
 	@Lob
 	@Column(length = 2500)
 	private String rideoutDescription;
+	@NotNull
 	@Column(length = 250)
 	private String rideoutLocationImageLink;
+	@NotNull
 	private Date rideoutDate;
+	@NotNull
 	private String rideoutStartingPoint;
+	@NotNull
 	private String rideoutEndingPoint;
 
 	public Rideout() {
