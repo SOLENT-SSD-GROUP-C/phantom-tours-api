@@ -18,6 +18,7 @@ import com.ssdgroupc.app.entity.Reservation;
 import com.ssdgroupc.app.entity.Rideout;
 import com.ssdgroupc.app.entity.Tour;
 import com.ssdgroupc.app.service.ReservationService;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class ReservationController {
@@ -35,11 +36,6 @@ public class ReservationController {
 		return reservationService.getReservation(id);
 	}
 
-//	@PostMapping("users/{userId}/reservations")
-//	public void addReservation(@Valid @RequestBody Reservation reservation) {
-//		reservationService.addReservation(reservation);
-//	}
-
 	@PostMapping("tours/{tourId}/reservations")
 	public void addReservationForTour(@Valid @RequestBody Reservation reservation, @PathVariable int tourId) {
 		reservation.setTour(new Tour(tourId));
@@ -51,11 +47,6 @@ public class ReservationController {
 		reservation.setRideout(new Rideout(rideoutId));
 		reservationService.addReservation(reservation);
 	}
-
-//	@PostMapping("/reservations")
-//	public void addReservation(@Valid @RequestBody Reservation reservation) {
-//		reservationService.addReservation(reservation);
-//	}
 
 	@DeleteMapping("reservations/{id}")
 	public void deleteReservation(@PathVariable(value = "id") int id) {

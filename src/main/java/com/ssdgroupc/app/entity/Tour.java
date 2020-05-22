@@ -52,23 +52,46 @@ public class Tour {
 	public Tour(int tourId) {
 		this.tourId = tourId;
 	}
+	
+	
 
-	public Tour(int tourId, int tourGroupSize, int tourDays, double tourDistance, double tourPrice,
-			boolean tourAvailability, String tourTitle, String tourDescription, String tourTerrain,
-			String tourStartingPoint, String tourEndingPoint, String tourLocationImageLink, String tourRouteMapLink) {
+//	public Tour(int tourId, int tourGroupSize, int tourDays, double tourDistance, double tourPrice,
+//			boolean tourAvailability, String tourTitle, String tourDescription, String tourTerrain,
+//			String tourStartingPoint, String tourEndingPoint, String tourLocationImageLink, String tourRouteMapLink) {
+//		super();
+//		this.tourId = tourId;
+//		this.tourGroupSize = tourGroupSize;
+//		this.tourDays = tourDays;
+//		this.tourDistance = tourDistance;
+//		this.tourPrice = tourPrice;
+//		this.tourAvailability = tourAvailability;
+//		this.tourTitle = tourTitle;
+//		this.tourDescription = tourDescription;
+//		this.tourTerrain = tourTerrain;
+//		this.tourStartingPoint = tourStartingPoint;
+//		this.tourEndingPoint = tourEndingPoint;
+//		this.tourLocationImageLink = tourLocationImageLink;
+//		this.tourRouteMapLink = tourRouteMapLink;
+//	}
+
+	public Tour(int tourId, @NotNull String tourTitle, @NotNull String tourDescription,
+			@NotNull String tourLocationImageLink, @NotNull int tourDays, @NotNull double tourDistance,
+			@NotNull double tourPrice, @NotNull int tourGroupSize, @NotNull String tourTerrain,
+			@NotNull String tourStartingPoint, @NotNull String tourEndingPoint, @NotNull boolean tourAvailability,
+			@NotNull String tourRouteMapLink) {
 		super();
 		this.tourId = tourId;
-		this.tourGroupSize = tourGroupSize;
+		this.tourTitle = tourTitle;
+		this.tourDescription = tourDescription;
+		this.tourLocationImageLink = tourLocationImageLink;
 		this.tourDays = tourDays;
 		this.tourDistance = tourDistance;
 		this.tourPrice = tourPrice;
-		this.tourAvailability = tourAvailability;
-		this.tourTitle = tourTitle;
-		this.tourDescription = tourDescription;
+		this.tourGroupSize = tourGroupSize;
 		this.tourTerrain = tourTerrain;
 		this.tourStartingPoint = tourStartingPoint;
 		this.tourEndingPoint = tourEndingPoint;
-		this.tourLocationImageLink = tourLocationImageLink;
+		this.tourAvailability = tourAvailability;
 		this.tourRouteMapLink = tourRouteMapLink;
 	}
 
