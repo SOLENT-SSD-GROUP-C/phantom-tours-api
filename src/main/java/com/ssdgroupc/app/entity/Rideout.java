@@ -2,35 +2,53 @@ package com.ssdgroupc.app.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="rideouts")
+@Table(name = "RIDEOUTS")
 public class Rideout {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rideoutId;
+	@NotNull
 	private String rideoutTitle;
+	@NotNull
+	@Lob
+	@Column(length = 2500)
 	private String rideoutDescription;
+	@NotNull
+	@Column(length = 250)
+	private String rideoutLocationImageLink;
+	@NotNull
 	private Date rideoutDate;
+	@NotNull
 	private String rideoutStartingPoint;
+	@NotNull
 	private String rideoutEndingPoint;
 
 	public Rideout() {
 		super();
 	}
 
-	public Rideout(int rideoutId, String rideoutTitle, String rideoutDescription, Date rideoutDate,
-			String rideoutStartingPoint, String rideoutEndingPoint) {
+	public Rideout(int rideoutId) {
+		this.rideoutId = rideoutId;
+	}
+
+	public Rideout(int rideoutId, String rideoutTitle, String rideoutDescription, String rideoutLocationImageLink,
+			Date rideoutDate, String rideoutStartingPoint, String rideoutEndingPoint) {
 		super();
 		this.rideoutId = rideoutId;
 		this.rideoutTitle = rideoutTitle;
 		this.rideoutDescription = rideoutDescription;
+		this.rideoutLocationImageLink = rideoutLocationImageLink;
 		this.rideoutDate = rideoutDate;
 		this.rideoutStartingPoint = rideoutStartingPoint;
 		this.rideoutEndingPoint = rideoutEndingPoint;
@@ -82,6 +100,14 @@ public class Rideout {
 
 	public void setRideoutEndingPoint(String rideoutEndingPoint) {
 		this.rideoutEndingPoint = rideoutEndingPoint;
+	}
+
+	public String getRideoutLocationImageLink() {
+		return rideoutLocationImageLink;
+	}
+
+	public void setRideoutLocationImageLink(String rideoutLocationImageLink) {
+		this.rideoutLocationImageLink = rideoutLocationImageLink;
 	}
 
 }

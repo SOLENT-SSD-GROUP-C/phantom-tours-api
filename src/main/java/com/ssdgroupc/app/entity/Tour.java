@@ -1,51 +1,97 @@
 package com.ssdgroupc.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tours")
+@Table(name = "TOURS")
 public class Tour {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int tourId;
-	private int tourGroupSize;
-	private int tourDays;
-	private double tourDistance;
-	private double tourPrice;
-	private boolean tourAvailability;
+	@NotNull
 	private String tourTitle;
+	@NotNull
+	@Lob
+	@Column(length = 2500)
 	private String tourDescription;
-	private String tourTerrain;
-	private String tourStartingPoint;
-	private String tourEndingPoint;
+	@NotNull
+	@Column(length = 250)
 	private String tourLocationImageLink;
+	@NotNull
+	private int tourDays;
+	@NotNull
+	private double tourDistance;
+	@NotNull
+	private double tourPrice;
+	@NotNull
+	private int tourGroupSize;
+	@NotNull
+	private String tourTerrain;
+	@NotNull
+	private String tourStartingPoint;
+	@NotNull
+	private String tourEndingPoint;
+	@NotNull
+	private boolean tourAvailability;
+	@NotNull
+	@Column(length = 250)
 	private String tourRouteMapLink;
 
 	public Tour() {
 		super();
 	}
 
-	public Tour(int tourId, int tourGroupSize, int tourDays, double tourDistance, double tourPrice,
-			boolean tourAvailability, String tourTitle, String tourDescription, String tourTerrain,
-			String tourStartingPoint, String tourEndingPoint, String tourLocationImageLink, String tourRouteMapLink) {
+	public Tour(int tourId) {
+		this.tourId = tourId;
+	}
+	
+	
+
+//	public Tour(int tourId, int tourGroupSize, int tourDays, double tourDistance, double tourPrice,
+//			boolean tourAvailability, String tourTitle, String tourDescription, String tourTerrain,
+//			String tourStartingPoint, String tourEndingPoint, String tourLocationImageLink, String tourRouteMapLink) {
+//		super();
+//		this.tourId = tourId;
+//		this.tourGroupSize = tourGroupSize;
+//		this.tourDays = tourDays;
+//		this.tourDistance = tourDistance;
+//		this.tourPrice = tourPrice;
+//		this.tourAvailability = tourAvailability;
+//		this.tourTitle = tourTitle;
+//		this.tourDescription = tourDescription;
+//		this.tourTerrain = tourTerrain;
+//		this.tourStartingPoint = tourStartingPoint;
+//		this.tourEndingPoint = tourEndingPoint;
+//		this.tourLocationImageLink = tourLocationImageLink;
+//		this.tourRouteMapLink = tourRouteMapLink;
+//	}
+
+	public Tour(int tourId, @NotNull String tourTitle, @NotNull String tourDescription,
+			@NotNull String tourLocationImageLink, @NotNull int tourDays, @NotNull double tourDistance,
+			@NotNull double tourPrice, @NotNull int tourGroupSize, @NotNull String tourTerrain,
+			@NotNull String tourStartingPoint, @NotNull String tourEndingPoint, @NotNull boolean tourAvailability,
+			@NotNull String tourRouteMapLink) {
 		super();
 		this.tourId = tourId;
-		this.tourGroupSize = tourGroupSize;
+		this.tourTitle = tourTitle;
+		this.tourDescription = tourDescription;
+		this.tourLocationImageLink = tourLocationImageLink;
 		this.tourDays = tourDays;
 		this.tourDistance = tourDistance;
 		this.tourPrice = tourPrice;
-		this.tourAvailability = tourAvailability;
-		this.tourTitle = tourTitle;
-		this.tourDescription = tourDescription;
+		this.tourGroupSize = tourGroupSize;
 		this.tourTerrain = tourTerrain;
 		this.tourStartingPoint = tourStartingPoint;
 		this.tourEndingPoint = tourEndingPoint;
-		this.tourLocationImageLink = tourLocationImageLink;
+		this.tourAvailability = tourAvailability;
 		this.tourRouteMapLink = tourRouteMapLink;
 	}
 

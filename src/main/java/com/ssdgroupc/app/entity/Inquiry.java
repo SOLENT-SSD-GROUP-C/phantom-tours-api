@@ -1,22 +1,31 @@
 package com.ssdgroupc.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="inquiries")
+@Table(name = "INQUIRIES")
 public class Inquiry {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int inquiryId;
+	@NotNull
 	private String inquiryTitle;
+	@NotNull
 	private String userFullName;
+	@NotNull
 	private String userEmail;
+	@NotNull
 	private String userPhone;
+	@Lob
+	@Column(length = 1000)
 	private String inquiryBody;
 
 	public Inquiry() {

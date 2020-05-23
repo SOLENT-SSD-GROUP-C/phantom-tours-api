@@ -29,6 +29,11 @@ public class ReservationService {
 	public Optional<Reservation> getReservation(int id) {
 		return reservationRepository.findById(id);
 	}
+//	
+//	public List<Reservation> getReservation(int tourId) {
+//		return reservationRepository.findByTourTourId(tourId);
+//	}
+
 
 	public void deleteReservation(int id) {
 		reservationRepository.deleteById(id);

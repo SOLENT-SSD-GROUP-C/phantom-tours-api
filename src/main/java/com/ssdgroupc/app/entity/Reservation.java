@@ -6,37 +6,91 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="reservations")
+@Table(name = "RESERVATIONS")
 public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int reservationId;
+	@NotNull
 	private String reservationType;
-	private String reservationName;
+	@NotNull
 	private String userFullName;
+	@NotNull
 	private String userEmail;
+	@NotNull
 	private String userPhone;
-	private String reservationBody;
 	@ManyToOne
-	private User user;
+	private Tour tour;
+	@ManyToOne
+	private Rideout rideout;
 
 	public Reservation() {
 		super();
 	}
 
-	public Reservation(int reservationId, String reservationType, String reservationName, String userFullName,
-			String userEmail, String userPhone, String reservationBody) {
+	public Reservation(int reservationId, String reservationType, String userFullName, String userEmail,
+			String userPhone, Tour tour) {
 		super();
 		this.reservationId = reservationId;
 		this.reservationType = reservationType;
-		this.reservationName = reservationName;
 		this.userFullName = userFullName;
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
-		this.reservationBody = reservationBody;
+		this.tour = tour;
+	}
+
+	public Reservation(int reservationId, String reservationType, String userFullName, String userEmail,
+			String userPhone, Rideout rideout) {
+		super();
+		this.reservationId = reservationId;
+		this.reservationType = reservationType;
+		this.userFullName = userFullName;
+		this.userEmail = userEmail;
+		this.userPhone = userPhone;
+		this.rideout = rideout;
+	}
+
+//	public Reservation(int reservationId, String reservationType, String reservationName, String userFullName,
+//			String userEmail, String userPhone, Tour tour) {
+//		super();
+//		this.reservationId = reservationId;
+//		this.reservationType = reservationType;
+//		this.reservationName = reservationName;
+//		this.userFullName = userFullName;
+//		this.userEmail = userEmail;
+//		this.userPhone = userPhone;
+//		this.tour = tour;
+//	}
+
+//	public Reservation(int reservationId, String reservationType, String reservationName, String userFullName,
+//			String userEmail, String userPhone) {
+//		super();
+//		this.reservationId = reservationId;
+//		this.reservationType = reservationType;
+//		this.reservationName = reservationName;
+//		this.userFullName = userFullName;
+//		this.userEmail = userEmail;
+//		this.userPhone = userPhone;
+//	}
+
+	public Rideout getRideout() {
+		return rideout;
+	}
+
+	public void setRideout(Rideout rideout) {
+		this.rideout = rideout;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
 	}
 
 	public int getReservationId() {
@@ -45,14 +99,6 @@ public class Reservation {
 
 	public void setReservationId(int reservationId) {
 		this.reservationId = reservationId;
-	}
-
-	public String getReservationName() {
-		return reservationName;
-	}
-
-	public void setReservationName(String reservationName) {
-		this.reservationName = reservationName;
 	}
 
 	public String getUserFullName() {
@@ -77,14 +123,6 @@ public class Reservation {
 
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
-	}
-
-	public String getReservationBody() {
-		return reservationBody;
-	}
-
-	public void setReservationBody(String reservationBody) {
-		this.reservationBody = reservationBody;
 	}
 
 	public String getReservationType() {
