@@ -30,40 +30,65 @@ public class RideoutController {
 	private RideoutService rideoutService;
 
 	@GetMapping(value = "/rideouts", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Rideout>> getAllTours() {
-
-		List<Rideout> rideouts = rideoutService.getAllRideouts();
-		return new ResponseEntity<List<Rideout>>(rideouts, HttpStatus.OK);
+	public List<Rideout> getAllTours() {
+		return rideoutService.getAllRideouts();
 	}
 
 	@GetMapping(value = "/rideouts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Rideout> getTour(@PathVariable(value = "id") int id) {
-		Optional<Rideout> rideout = rideoutService.getRideout(id);
-		return new ResponseEntity<Rideout>(rideout.get(), HttpStatus.OK);
+	public Optional<Rideout> getTour(@PathVariable(value = "id") int id) {
+		return rideoutService.getRideout(id);
 	}
 
 	@PostMapping(value = "/rideouts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Rideout> addRideout(@Valid @RequestBody Rideout rideout) {
-
-		Optional<Rideout> r = rideoutService.getRideout(rideout.getRideoutId());
-		if (r.isPresent()) {
-			throw new HttpClientErrorException(HttpStatus.CONFLICT,
-					"Rideout with ID" + "(" + rideout.getRideoutId() + ") already exists");
-		}
-
-		return new ResponseEntity<Rideout>(rideoutService.addRideout(rideout), HttpStatus.CREATED);
+	public void addRideout(@Valid @RequestBody Rideout rideout) {
+		rideoutService.addRideout(rideout);
 	}
 
 	@PutMapping(value = "/rideouts/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Rideout> updateRideout(@PathVariable(value = "id") int id, @RequestBody Rideout rideout) {
-
-		return new ResponseEntity<Rideout>(rideoutService.updateRideout(id, rideout), HttpStatus.ACCEPTED);
+	public void updateRideout(@PathVariable(value = "id") int id, @RequestBody Rideout rideout) {
+		rideoutService.updateRideout(id, rideout);
 	}
 
 	@DeleteMapping("/rideouts/{id}")
-	public ResponseEntity<Object> deleteRideout(@PathVariable(value = "id") int id) {
+	public void deleteRideout(@PathVariable(value = "id") int id) {
 		rideoutService.deleteRideout(id);
-		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
+
+//	@GetMapping(value = "/rideouts", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Rideout>> getAllTours() {
+//
+//		List<Rideout> rideouts = rideoutService.getAllRideouts();
+//		return new ResponseEntity<List<Rideout>>(rideouts, HttpStatus.OK);
+//	}
+//
+//	@GetMapping(value = "/rideouts/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Rideout> getTour(@PathVariable(value = "id") int id) {
+//		Optional<Rideout> rideout = rideoutService.getRideout(id);
+//		return new ResponseEntity<Rideout>(rideout.get(), HttpStatus.OK);
+//	}
+//
+//	@PostMapping(value = "/rideouts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Rideout> addRideout(@Valid @RequestBody Rideout rideout) {
+//
+//		Optional<Rideout> r = rideoutService.getRideout(rideout.getRideoutId());
+//		if (r.isPresent()) {
+//			throw new HttpClientErrorException(HttpStatus.CONFLICT,
+//					"Rideout with ID" + "(" + rideout.getRideoutId() + ") already exists");
+//		}
+//
+//		return new ResponseEntity<Rideout>(rideoutService.addRideout(rideout), HttpStatus.CREATED);
+//	}
+//
+//	@PutMapping(value = "/rideouts/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Rideout> updateRideout(@PathVariable(value = "id") int id, @RequestBody Rideout rideout) {
+//
+//		return new ResponseEntity<Rideout>(rideoutService.updateRideout(id, rideout), HttpStatus.ACCEPTED);
+//	}
+//
+//	@DeleteMapping("/rideouts/{id}")
+//	public ResponseEntity<Object> deleteRideout(@PathVariable(value = "id") int id) {
+//		rideoutService.deleteRideout(id);
+//		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+//	}
 
 }

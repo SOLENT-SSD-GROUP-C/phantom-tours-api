@@ -31,27 +31,27 @@ public class BikeController {
 		return bikeService.getAllBikes();
 	}
 
-//	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public void addBike(@Valid @RequestBody Bike bike) {
-//
-//		bikeService.addBike(bike);
-//	}
-
 	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Bike> addBike(@Valid @RequestBody Bike bike) {
+	public void addBike(@Valid @RequestBody Bike bike) {
 
-		return new ResponseEntity<Bike>(bikeService.addBike(bike), HttpStatus.CREATED);
+		bikeService.addBike(bike);
 	}
 
-//	@DeleteMapping("/bikes/{id}")
-//	public void deleteBike(@PathVariable(value = "id") int id) {
-//		bikeService.deleteBike(id);
+//	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Bike> addBike(@Valid @RequestBody Bike bike) {
+//
+//		return new ResponseEntity<Bike>(bikeService.addBike(bike), HttpStatus.CREATED);
 //	}
 
 	@DeleteMapping("/bikes/{id}")
-	public ResponseEntity<Object> deleteBike(@PathVariable(value = "id") int id) {
+	public void deleteBike(@PathVariable(value = "id") int id) {
 		bikeService.deleteBike(id);
-		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
+
+//	@DeleteMapping("/bikes/{id}")
+//	public ResponseEntity<Object> deleteBike(@PathVariable(value = "id") int id) {
+//		bikeService.deleteBike(id);
+//		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+//	}
 
 }
