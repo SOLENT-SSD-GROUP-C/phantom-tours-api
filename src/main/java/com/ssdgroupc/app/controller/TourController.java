@@ -74,7 +74,7 @@ public class TourController {
 //		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 //	}
 
-	@GetMapping(value = "/tours", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping("/tours")
 	public List<Tour> getAllTours() {
 		return tourService.getAllTours();
 	}
