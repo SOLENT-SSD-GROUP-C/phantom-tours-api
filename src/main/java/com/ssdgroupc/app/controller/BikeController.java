@@ -21,41 +21,61 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssdgroupc.app.entity.Bike;
 import com.ssdgroupc.app.service.BikeService;
 
+import javassist.NotFoundException;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class BikeController {
-	private static final Logger LOGGER = LogManager.getLogger();
 	
+	private static final Logger LOGGER = LogManager.getLogger();
+
 	@Autowired
 	private BikeService bikeService;
 
-	@GetMapping("/bikes")
-	public List<Bike> getAllBikes() {
-		LOGGER.error("Hitttt");
-		return bikeService.getAllBikes();
+	@GetMapping(value = "/bikes", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Bike>> getAllBikes() throws NotFoundException {
+
+		List<Bike> bikes = bikeService.getAllBikes();
+
+		if (bikes.isEmpty()) {
+			LOGGER.info("Bike records are empty");
+			throw new NotFoundException("No bike records were found");
+		}
+
+		return new ResponseEntity<List<Bike>>(bikes, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addBike(@Valid @RequestBody Bike bike) {
+	public ResponseEntity<Bike> addBike(@Valid @RequestBody Bike bike) {
 
-		bikeService.addBike(bike);
+		return new ResponseEntity<Bike>(bikeService.addBike(bike), HttpStatus.CREATED);
 	}
-
-//	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Bike> addBike(@Valid @RequestBody Bike bike) {
-//
-//		return new ResponseEntity<Bike>(bikeService.addBike(bike), HttpStatus.CREATED);
-//	}
 
 	@DeleteMapping("/bikes/{id}")
-	public void deleteBike(@PathVariable(value = "id") int id) {
+	public ResponseEntity<Object> deleteBike(@PathVariable(value = "id") int id) {
+
 		bikeService.deleteBike(id);
+
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 
+//	Before Response
+
+//	@GetMapping("/bikes")
+//	public List<Bike> getAllBikes() {
+//		LOGGER.error("Hitttt");
+//		return bikeService.getAllBikes();
+//	}
+//	
 //	@DeleteMapping("/bikes/{id}")
-//	public ResponseEntity<Object> deleteBike(@PathVariable(value = "id") int id) {
+//	public void deleteBike(@PathVariable(value = "id") int id) {
 //		bikeService.deleteBike(id);
-//		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+//	}
+//	
+//	@PostMapping(value = "/bikes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public void addBike(@Valid @RequestBody Bike bike) {
+//
+//		bikeService.addBike(bike);
 //	}
 
 }

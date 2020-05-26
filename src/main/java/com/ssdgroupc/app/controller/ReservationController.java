@@ -5,7 +5,12 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,39 +24,65 @@ import com.ssdgroupc.app.entity.Rideout;
 import com.ssdgroupc.app.entity.Tour;
 import com.ssdgroupc.app.service.ReservationService;
 
+import javassist.NotFoundException;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class ReservationController {
+	
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping("reservations")
-	public List<Reservation> getAllReservations() {
-		return reservationService.getAllReservations();
+	@GetMapping(value = "reservations", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Reservation>> getAllReservations() throws NotFoundException {
+
+		List<Reservation> items = reservationService.getAllReservations();
+
+		if (items.isEmpty()) {
+			LOGGER.info("Reservation records are empty");
+			throw new NotFoundException("No Reservation records were found");
+		}
+
+		return new ResponseEntity<List<Reservation>>(items, HttpStatus.OK);
 	}
 
-	@GetMapping("reservations/{id}")
-	public Optional<Reservation> getReservation(@PathVariable(value = "id") int id) {
-		return reservationService.getReservation(id);
+	@GetMapping(value = "reservations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Reservation> getReservation(@PathVariable(value = "id") int id) throws NotFoundException {
+
+		Optional<Reservation> item = reservationService.getReservation(id);
+
+		if (!item.isPresent()) {
+			LOGGER.info("Reservation record not found");
+			throw new NotFoundException("No Reservation record were found");
+		}
+
+		return new ResponseEntity<Reservation>(item.get(), HttpStatus.OK);
+
 	}
 
-	@PostMapping("tours/{tourId}/reservations")
-	public void addReservationForTour(@Valid @RequestBody Reservation reservation, @PathVariable int tourId) {
+	@PostMapping(value = "tours/{tourId}/reservations", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Reservation> addReservationForTour(@Valid @RequestBody Reservation reservation,
+			@PathVariable int tourId) {
+
 		reservation.setTour(new Tour(tourId));
-		reservationService.addReservation(reservation);
+		return new ResponseEntity<Reservation>(reservationService.addReservation(reservation), HttpStatus.CREATED);
 	}
 
-	@PostMapping("rideouts/{rideoutId}/reservations")
-	public void addReservationForRideout(@Valid @RequestBody Reservation reservation, @PathVariable int rideoutId) {
+	@PostMapping(value = "rideouts/{rideoutId}/reservations", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Reservation> addReservationForRideout(@Valid @RequestBody Reservation reservation,
+			@PathVariable int rideoutId) {
+
 		reservation.setRideout(new Rideout(rideoutId));
-		reservationService.addReservation(reservation);
+		return new ResponseEntity<Reservation>(reservationService.addReservation(reservation), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("reservations/{id}")
-	public void deleteReservation(@PathVariable(value = "id") int id) {
+	public ResponseEntity<Object> deleteReservation(@PathVariable(value = "id") int id) {
+
 		reservationService.deleteReservation(id);
-		;
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 
 }
