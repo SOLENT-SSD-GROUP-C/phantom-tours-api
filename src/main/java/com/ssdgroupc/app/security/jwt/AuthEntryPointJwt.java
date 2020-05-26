@@ -12,6 +12,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+/**
+ * Date: May 26-2020 AuthEntryPointJwt component.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 

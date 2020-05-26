@@ -34,27 +34,56 @@ import com.ssdgroupc.app.security.request.SignupRequest;
 import com.ssdgroupc.app.security.response.JwtResponse;
 import com.ssdgroupc.app.security.response.MessageResponse;
 
+/**
+ * Date: May 26-2020 REST controller class for Auth.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("auth")
 public class AuthController {
+
+	/**
+	 * Injects AuthenticationManager.
+	 */
 	@Autowired
 	AuthenticationManager authenticationManager;
 
+	/**
+	 * Injects UserRepository.
+	 */
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * Injects RoleRepository.
+	 */
 	@Autowired
 	RoleRepository roleRepository;
 
+	/**
+	 * Injects PasswordEncoder.
+	 */
 	@Autowired
 	PasswordEncoder encoder;
 
+	/**
+	 * Injects JwtUtils.
+	 */
 	@Autowired
 	JwtUtils jwtUtils;
-	
+
 	private static final Logger LOGGER = LogManager.getLogger();
 
+	/**
+	 * Method to sign in a user.
+	 * 
+	 * @param takes a loginRequest.
+	 * @return returns a JwtResponse
+	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -67,13 +96,19 @@ public class AuthController {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		
+
 		LOGGER.info("Succefully Signed in");
 
 		return ResponseEntity.ok(
 				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
+	/**
+	 * Method to sign up a user.
+	 * 
+	 * @param takes a signUpRequest
+	 * @return returns a MessageResponse
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -98,7 +133,7 @@ public class AuthController {
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 			LOGGER.info("Default user role set");
-		}else if(strRoles.equals("admin")) {
+		} else if (strRoles.equals("admin")) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
@@ -107,7 +142,7 @@ public class AuthController {
 
 		user.setRoles(roles);
 		LOGGER.info("Role Set");
-		
+
 		userRepository.save(user);
 		LOGGER.info("User Added");
 

@@ -9,6 +9,13 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Date: May 26-2020 Entity class for Tour.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
 @Table(name = "TOURS")
 public class Tour {

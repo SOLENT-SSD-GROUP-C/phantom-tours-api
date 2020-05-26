@@ -24,15 +24,31 @@ import com.ssdgroupc.app.service.UserService;
 
 import javassist.NotFoundException;
 
+/**
+ * Date: May 26-2020 REST controller class for User.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class UserController {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
+	/**
+	 * Injects UserService class.
+	 */
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Method to get all Users.
+	 * 
+	 * @return returns List of users and HttpStatus:OK
+	 * @throws NotFoundException
+	 */
 	@GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> getAllUsers() throws NotFoundException {
 
@@ -47,6 +63,13 @@ public class UserController {
 
 	}
 
+	/**
+	 * Method to get a User.
+	 * 
+	 * @param takes an long id
+	 * @return returns a User and HttpStatus:OK
+	 * @throws NotFoundException
+	 */
 	@GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getUser(@PathVariable(value = "id") long id) throws NotFoundException {
 
@@ -60,12 +83,24 @@ public class UserController {
 		return new ResponseEntity<User>(item.get(), HttpStatus.OK);
 	}
 
+	/**
+	 * Method to add a User.
+	 * 
+	 * @param takes a user object
+	 * @return returns added User and HttpStatus:CREATED
+	 */
 	@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
 
 		return new ResponseEntity<User>(userService.addTour(user), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method to delete a User.
+	 * 
+	 * @param takes an long id
+	 * @return HttpStatus:NO_CONTENT
+	 */
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<Object> deleteTour(@PathVariable(value = "id") long id) {
 

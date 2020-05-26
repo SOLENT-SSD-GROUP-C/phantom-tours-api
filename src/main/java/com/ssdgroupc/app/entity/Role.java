@@ -2,6 +2,13 @@ package com.ssdgroupc.app.entity;
 
 import javax.persistence.*;
 
+/**
+ * Date: May 26-2020 Entity class for Role.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
 @Table(name = "roles")
 public class Role {

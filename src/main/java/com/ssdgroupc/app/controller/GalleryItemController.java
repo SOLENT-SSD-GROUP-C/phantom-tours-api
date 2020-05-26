@@ -23,15 +23,31 @@ import com.ssdgroupc.app.service.GalleryItemService;
 
 import javassist.NotFoundException;
 
+/**
+ * Date: May 26-2020 REST controller class for GalleryItem.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class GalleryItemController {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
+	/**
+	 * Injects GalleryItemService class.
+	 */
 	@Autowired
 	private GalleryItemService galleryItemService;
 
+	/**
+	 * Method to get all GalleryItems.
+	 * 
+	 * @return returns List of gallery items and HttpStatus:OK
+	 * @throws NotFoundException
+	 */
 	@GetMapping(value = "/galleryItems", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<GalleryItem>> getAllGalleryItems() throws NotFoundException {
 
@@ -45,12 +61,24 @@ public class GalleryItemController {
 		return new ResponseEntity<List<GalleryItem>>(items, HttpStatus.OK);
 	}
 
+	/**
+	 * Method to add a GalleryItem.
+	 * 
+	 * @param takes a galleryItem object
+	 * @return returns the added GalleryItem and HttpStatus:CREATED
+	 */
 	@PostMapping(value = "/galleryItems", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GalleryItem> addGalleryItem(@Valid @RequestBody GalleryItem galleryItem) {
 
 		return new ResponseEntity<GalleryItem>(galleryItemService.addGalleryItem(galleryItem), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method to delete a GalleryItem.
+	 * 
+	 * @param takes an int id
+	 * @return HttpStatus:NO_CONTENT
+	 */
 	@DeleteMapping("/galleryItems/{id}")
 	public ResponseEntity<Object> deleteGalleryItem(@PathVariable(value = "id") int id) {
 

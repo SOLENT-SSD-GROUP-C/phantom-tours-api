@@ -24,15 +24,31 @@ import com.ssdgroupc.app.service.FeedbackService;
 
 import javassist.NotFoundException;
 
+/**
+ * Date: May 26-2020 REST controller class for Feedback.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class FeedbackController {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
+	/**
+	 * Injects FeedbackService class
+	 */
 	@Autowired
 	private FeedbackService feedbackService;
 
+	/**
+	 * Method to get all Feedbacks.
+	 * 
+	 * @return returns List of feedbacks and HttpStatus:OK
+	 * @throws NotFoundException
+	 */
 	@GetMapping(value = "/feedbacks", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Feedback>> getAllFeedbacks() throws NotFoundException {
 
@@ -46,6 +62,13 @@ public class FeedbackController {
 		return new ResponseEntity<List<Feedback>>(feedbacks, HttpStatus.OK);
 	}
 
+	/**
+	 * Method to add Feedback for a Tour.
+	 * 
+	 * @param takes a feedback object
+	 * @param takes a int tourId
+	 * @return returns added Feedback and HttpStatus:CREATED
+	 */
 	@PostMapping(value = "tours/{tourId}/feedbacks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback, @PathVariable int tourId) {
 
@@ -54,6 +77,12 @@ public class FeedbackController {
 		return new ResponseEntity<Feedback>(feedbackService.addFeedback(feedback), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method to delete a Feedback.
+	 * 
+	 * @param takes a int id
+	 * @return returns HttpStatus:NO_CONTENT
+	 */
 	@DeleteMapping("feedbacks/{id}")
 	public ResponseEntity<Object> deletFeedback(@PathVariable int id) {
 

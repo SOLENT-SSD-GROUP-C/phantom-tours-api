@@ -4,6 +4,13 @@ package com.ssdgroupc.app.security.request;
 
 import javax.validation.constraints.*;
 
+/**
+ * Date: May 26-2020 SignupRequest entity.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 public class SignupRequest {
 
 	@NotBlank

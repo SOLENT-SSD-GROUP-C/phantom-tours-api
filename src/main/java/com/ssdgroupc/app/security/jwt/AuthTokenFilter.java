@@ -19,12 +19,27 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ssdgroupc.app.security.UserDetailsServiceImpl;
 
+/**
+ * Date: May 26-2020 AuthTokenFilter class.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ */
 public class AuthTokenFilter extends OncePerRequestFilter {
+
+	/**
+	 * Injects JwtUtils
+	 */
 	@Autowired
 	private JwtUtils jwtUtils;
 
+	/**
+	 * Injects UserDetailsServiceImpl
+	 */
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+
 	private static final Logger LOGGER = LogManager.getLogger(AuthTokenFilter.class);
 
 	@Override
@@ -50,6 +65,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	/**
+	 * Method to parse request
+	 * 
+	 * @param takes in a request of type HttpServletRequest
+	 * @return returns a String
+	 */
 	private String parseJwt(HttpServletRequest request) {
 		String headerAuth = request.getHeader("Authorization");
 

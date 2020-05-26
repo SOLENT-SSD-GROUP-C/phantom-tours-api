@@ -12,13 +12,26 @@ import com.ssdgroupc.app.security.UserDetailsImpl;
 
 import io.jsonwebtoken.*;
 
+/**
+ * Date: May 26-2020 JwtUtils class.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ */
 @Component
 public class JwtUtils {
 	private static final Logger LOGGER = LogManager.getLogger(JwtUtils.class);
 
+	/**
+	 * String value of JWT secret code
+	 */
 	@Value("${ssdgroupc.app.jwtSecret}")
 	private String jwtSecret;
 
+	/**
+	 * Int value of expiration time of JWT secret
+	 */
 	@Value("${ssdgroupc.app.jwtExpirationMs}")
 	private int jwtExpirationMs;
 
@@ -26,18 +39,27 @@ public class JwtUtils {
 
 		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-		return Jwts.builder()
-				.setSubject((userPrincipal.getUsername()))
-				.setIssuedAt(new Date())
+		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret)
-				.compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
+	/**
+	 * Method to get username from the JWT token
+	 * 
+	 * @param takes in a token of type String
+	 * @return returns a username of type String
+	 */
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 
+	/**
+	 * Method to validate the JWT authToken
+	 * 
+	 * @param takes in a authToken of type String
+	 * @return returns a boolean of whether the token is valid or invalid
+	 */
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

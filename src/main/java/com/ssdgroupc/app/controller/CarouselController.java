@@ -23,15 +23,31 @@ import com.ssdgroupc.app.service.CarouselService;
 
 import javassist.NotFoundException;
 
+/**
+ * Date: May 26-2020 REST controller class for Carousel.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CarouselController {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
+	/**
+	 * Injects CarouselService class
+	 */
 	@Autowired
 	private CarouselService carouselService;
 
+	/**
+	 * Method to get all Carousels.
+	 * 
+	 * @return returns List of carousels and HttpStatus:OK
+	 * @throws NotFoundException
+	 */
 	@GetMapping(value = "/carousels", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Carousel>> getAllCarousel() throws NotFoundException {
 
@@ -45,12 +61,24 @@ public class CarouselController {
 		return new ResponseEntity<List<Carousel>>(carousels, HttpStatus.OK);
 	}
 
+	/**
+	 * Method to add a Carousel.
+	 * 
+	 * @param takes a carousel object
+	 * @return returns added Carousel and HttpStatus:CREATED
+	 */
 	@PostMapping(value = "/carousels", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Carousel> addCarousel(@Valid @RequestBody Carousel carousel) {
 
 		return new ResponseEntity<Carousel>(carouselService.addCarousel(carousel), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method to delete a Carousel.
+	 * 
+	 * @param takes an int id
+	 * @return returns HttpStatus:NO_CONTENT
+	 */
 	@DeleteMapping("/carousels/{id}")
 	public ResponseEntity<Object> deletCarousel(@PathVariable(value = "id") int id) {
 
