@@ -13,6 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssdgroupc.app.entity.User;
 
+/**
+ * Date: May 26-2020 UserDetails Implementation.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ *
+ */
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +44,12 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	/**
+	 * Method to build a UserDetailsImpl
+	 * 
+	 * @param takes in user object
+	 * @return returns a new instance of UserDetailsImpl class.
+	 */
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))

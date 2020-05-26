@@ -10,8 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ssdgroupc.app.entity.User;
 import com.ssdgroupc.app.repository.UserRepository;
 
+/**
+ * Date: May 26-2020 UserDetailsServiceImpl class.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ *
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+	
+	
+	/**
+	 * Injects UserRepository
+	 */
 	@Autowired
 	UserRepository userRepository;
 

@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,25 +34,56 @@ import com.ssdgroupc.app.security.request.SignupRequest;
 import com.ssdgroupc.app.security.response.JwtResponse;
 import com.ssdgroupc.app.security.response.MessageResponse;
 
+/**
+ * Date: May 26-2020 REST controller class for Auth.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Controller
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("auth")
 public class AuthController {
+
+	/**
+	 * Injects AuthenticationManager.
+	 */
 	@Autowired
 	AuthenticationManager authenticationManager;
 
+	/**
+	 * Injects UserRepository.
+	 */
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * Injects RoleRepository.
+	 */
 	@Autowired
 	RoleRepository roleRepository;
 
+	/**
+	 * Injects PasswordEncoder.
+	 */
 	@Autowired
 	PasswordEncoder encoder;
 
+	/**
+	 * Injects JwtUtils.
+	 */
 	@Autowired
 	JwtUtils jwtUtils;
 
+	private static final Logger LOGGER = LogManager.getLogger();
+
+	/**
+	 * Method to sign in a user.
+	 * 
+	 * @param takes a loginRequest.
+	 * @return returns a JwtResponse
+	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -64,17 +97,27 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
+		LOGGER.info("Succefully Signed in");
+
 		return ResponseEntity.ok(
 				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
+	/**
+	 * Method to sign up a user.
+	 * 
+	 * @param takes a signUpRequest
+	 * @return returns a MessageResponse
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			LOGGER.warn("Duplicate username found");
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			LOGGER.warn("Duplicate email found");
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
 		}
 
@@ -82,38 +125,26 @@ public class AuthController {
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()));
 
-		Set<String> strRoles = signUpRequest.getRole();
+		String strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				switch (role) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(adminRole);
-
-					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
-
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
+			LOGGER.info("Default user role set");
+		} else if (strRoles.equals("admin")) {
+			Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+			LOGGER.info("Added as admin");
 		}
 
 		user.setRoles(roles);
+		LOGGER.info("Role Set");
+
 		userRepository.save(user);
+		LOGGER.info("User Added");
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}

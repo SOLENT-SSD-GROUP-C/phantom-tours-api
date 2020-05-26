@@ -8,6 +8,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * Date: May 26-2020 Entity class for User.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
 @Table(	name = "users", 
 		uniqueConstraints = { 

@@ -2,6 +2,13 @@ package com.ssdgroupc.app.security.response;
 
 import java.util.List;
 
+/**
+ * Date: May 26-2020 JwtResponse entity.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";

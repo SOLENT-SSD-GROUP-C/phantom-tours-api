@@ -17,6 +17,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ssdgroupc.app.security.jwt.AuthEntryPointJwt;
 import com.ssdgroupc.app.security.jwt.AuthTokenFilter;
 
+/**
+ * Date: May 26-2020 WebSecurityConfig class.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Security
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -24,9 +32,17 @@ import com.ssdgroupc.app.security.jwt.AuthTokenFilter;
 		// jsr250Enabled = true,
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	
+	/**
+	 * Injects UserDetailsServiceImpl
+	 */
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
+	/**
+	 * Injects AuthEntryPointJwt
+	 */
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 

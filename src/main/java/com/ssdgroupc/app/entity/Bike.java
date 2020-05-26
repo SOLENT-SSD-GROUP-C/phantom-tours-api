@@ -10,20 +10,27 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+/**
+ * Date: May 26-2020 Entity class for Bike.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
-@Table(name="BIKES")
+@Table(name = "BIKES")
 public class Bike {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int bikeId;
 	@NotNull
 	private String bikeName;
 	@Lob
-	@Column( length = 1000 )
+	@Column(length = 1000)
 	private String bikeDescription;
 	@NotNull
-	@Column( length = 500 )
+	@Column(length = 500)
 	private String bikeImageLink;
 
 	public Bike(int bikeId, String bikeName, String bikeDescription, String imageLink) {

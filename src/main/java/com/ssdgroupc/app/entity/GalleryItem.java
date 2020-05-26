@@ -8,6 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Date: May 26-2020 Entity class for GalleryItem.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
 @Table(name = "GALLERY_ITEMS")
 public class GalleryItem {

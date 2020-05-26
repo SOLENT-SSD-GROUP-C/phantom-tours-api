@@ -8,6 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Date: May 26-2020 Entity class for Carousel.
+ * 
+ * @author aman
+ * @version 1.0
+ * @category Entity
+ */
 @Entity
 @Table(name="CAROUSELS")
 public class Carousel {
