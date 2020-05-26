@@ -5,7 +5,7 @@ package com.ssdgroupc.app.security.request;
 import javax.validation.constraints.*;
 
 public class SignupRequest {
-	
+
 	@NotBlank
 	@Size(min = 3, max = 20)
 	private String username;
@@ -45,14 +45,6 @@ public class SignupRequest {
 		this.password = password;
 	}
 
-//	public Set<String> getRole() {
-//		return this.role;
-//	}
-//
-//	public void setRole(Set<String> role) {
-//		this.role = role;
-//	}
-	
 	public String getRole() {
 		return this.role;
 	}

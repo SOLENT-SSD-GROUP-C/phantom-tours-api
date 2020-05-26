@@ -25,13 +25,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
-	private static final Logger LOGGER = LogManager.getLogger(AuthTokenFilter.class.getName());
-
-//	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+	private static final Logger LOGGER = LogManager.getLogger(AuthTokenFilter.class);
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+
 		try {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
