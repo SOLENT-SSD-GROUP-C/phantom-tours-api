@@ -1,6 +1,7 @@
 # Phantom Tours Spring boot API
 
-**VueJS web appliaction of Group-C for SOFTWARE SYSTEMS DEVELOPMENT (BCC608), Sothamption Solent University**
+**Spring boot API appliaction of Group-C for SOFTWARE SYSTEMS DEVELOPMENT (BCC608), Sothamption Solent University**
+[API Documentation](https://solent-ssd-group-c.github.io/api_docs/)
 
 >
 ### Group Members
