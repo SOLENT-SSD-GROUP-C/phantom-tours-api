@@ -2,6 +2,14 @@
 
 **VueJS web appliaction of Group-C for SOFTWARE SYSTEMS DEVELOPMENT (BCC608), Sothamption Solent University**
 
+>
+### Group Members
+**Husnul Aman-14883830 |**
+**Jareer Zeenam-14883881 |**
+**Emaadh Careem-14889641 |**
+**Puvanendrarajah Vinushiya-14883813 |**
+**Thilagshana Thilakarasa-14883708**
+
 ## Application Configuration
 
 **`Application.properties`** can be used to configure the API the way you want.
